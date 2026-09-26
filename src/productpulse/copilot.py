@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Mapping
+from itertools import pairwise
 
 import pandas as pd
 
@@ -23,7 +24,7 @@ def _funnel_answer(df: pd.DataFrame) -> str:
     work["sessions"] = pd.to_numeric(work["sessions"], errors="coerce")
     rows = list(work.dropna(subset=["sessions"])[["stage_name", "sessions"]].itertuples(index=False, name=None))
     drops = []
-    for (left_name, left), (right_name, right) in zip(rows, rows[1:], strict=False):
+    for (left_name, left), (right_name, right) in pairwise(rows):
         if left > 0:
             drops.append((left_name, right_name, 1 - right / left))
     journey = " → ".join(f"{name}: {_fmt_int(count)}" for name, count in rows)
