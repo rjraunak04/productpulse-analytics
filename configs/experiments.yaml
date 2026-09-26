@@ -1,0 +1,33 @@
+experiment_contract:
+  version: 1
+  experiment_id: checkout_experience_demo_v1
+  purpose: demonstrate a reproducible statistical experimentation workflow
+  assignment_source: simulated
+  simulated_assignment_disclosure_required: true
+  unit_of_randomization: user_pseudo_id
+  variants:
+    control: 0.50
+    treatment: 0.50
+  deterministic_seed: productpulse-checkout-v1
+
+analysis:
+  alpha: 0.05
+  target_power: 0.80
+  primary_metric:
+    name: purchase_conversion
+    type: binary
+  guardrails:
+    - begin_checkout_rate
+  report:
+    - absolute_uplift
+    - relative_uplift
+    - confidence_interval
+    - p_value
+    - effect_size
+    - practical_significance
+    - sample_ratio_mismatch
+
+decision:
+  minimum_practical_absolute_uplift: 0.005
+  statistical_and_practical_significance_are_separate: true
+  no_causal_claim_from_ga4_without_randomized_assignment: true
