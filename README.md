@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 3 complete — event-level data quality and validation framework.**
+**Step 4 complete — reusable behavioural analytics layer.**
 
-The repository now includes reproducible SQL diagnostics for completeness, uniqueness, validity, continuity and ecommerce integrity; an explicit error/warning quality contract; reusable Python quality evaluators; unit tests; and a GitHub Actions lint/test gate. Observed BigQuery counts are still recorded only after execution rather than fabricated.
+The repository now defines explicit event, session, user, user-day and ordered session-event grains; preserves GA4 session identity without silently synthesizing missing sessions; adds behavioural reconciliation/invariant checks; and includes unit-tested Python helpers for behavioural contracts. Downstream product KPIs can now build on stable analytical grains.
 
 ## Roadmap
 
