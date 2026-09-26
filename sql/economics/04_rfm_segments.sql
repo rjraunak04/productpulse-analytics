@@ -12,7 +12,7 @@ WITH purchases AS (
 ), scored AS (
   SELECT *,
     DATE_DIFF(DATE '2021-01-31',last_purchase_date,DAY) recency_days,
-    6-NTILE(5) OVER(ORDER BY DATE_DIFF(DATE '2021-01-31',last_purchase_date,DAY)) recency_score,
+    NTILE(5) OVER(ORDER BY DATE_DIFF(DATE '2021-01-31',last_purchase_date,DAY) DESC) recency_score,
     NTILE(5) OVER(ORDER BY purchase_events) frequency_score,
     NTILE(5) OVER(ORDER BY revenue) monetary_score
   FROM purchases
