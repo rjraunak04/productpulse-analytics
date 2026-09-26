@@ -1,0 +1,28 @@
+economics_contract:
+  version: 1
+  currency: USD
+  observation_window:
+    start: "2020-11-01"
+    end: "2021-01-31"
+
+supported:
+  - observed_purchase_revenue
+  - revenue_per_active_user
+  - revenue_per_purchasing_user
+  - purchase_frequency
+  - repeat_purchase_rate
+  - observed_user_value
+  - first_user_source_revenue_context
+  - recency_frequency_monetary_segmentation
+
+unsupported_without_external_cost_data:
+  - customer_acquisition_cost
+  - roas
+  - marketing_payback_period
+  - profit_based_ltv
+
+guardrails:
+  user_pseudo_id_is_not_verified_customer: true
+  observed_user_value_is_not_lifetime_value: true
+  first_user_source_is_not_session_attribution: true
+  purchase_event_is_not_assumed_unique_order_until_transaction_integrity_is_validated: true
