@@ -60,10 +60,11 @@ Growth economics      Survival analysis   Statistical decisions
 | Economics | observed revenue/value, repeat purchase, acquisition-source context, RFM-style segmentation |
 | Survival | right-censored time-to-next-activity and Kaplan–Meier estimation |
 | Decision app | focused Streamlit views over validated aggregate exports |
+| Analytics Copilot | grounded chat over validated KPIs, funnel, retention, experiment, economics and inactivity outputs |
 
 ## Technical stack
 
-**BigQuery SQL · Advanced SQL · Python · pandas · SciPy/Statsmodels · statistics · pytest · Ruff · GitHub Actions · Streamlit · Railway**
+**BigQuery SQL · Advanced SQL · Python · pandas · SciPy/Statsmodels · statistics · conversational analytics · pytest · Ruff · GitHub Actions · Streamlit · Railway**
 
 The Python package contains reusable metric, funnel, retention, experimentation, economics and survival helpers. SQL owns warehouse metric logic; Python handles reusable statistical/validation semantics; Streamlit stays a thin presentation layer.
 
