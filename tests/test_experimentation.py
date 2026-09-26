@@ -9,10 +9,10 @@ from productpulse.experimentation import (
 
 def test_binary_metric_detects_positive_uplift():
     result = analyze_binary_metric(100, 1000, 130, 1000, minimum_practical_uplift=0.02)
-    assert result.absolute_difference == pytest.approx(0.03)
+    assert result.absolute_uplift == pytest.approx(0.03)
     assert result.relative_uplift == pytest.approx(0.3)
     assert result.practically_significant is True
-    assert result.ci_low < result.absolute_difference < result.ci_high
+    assert result.ci_low < result.absolute_uplift < result.ci_high
 
 
 def test_binary_metric_rejects_bad_counts():
@@ -22,13 +22,13 @@ def test_binary_metric_rejects_bad_counts():
 
 def test_srm_balanced_allocation():
     result = sample_ratio_mismatch(500, 500)
-    assert result.observed_treatment_share == pytest.approx(0.5)
-    assert result.p_value > 0.05
-    assert result.has_srm is False
+    assert result["chi_square"] == pytest.approx(0.0)
+    assert result["p_value"] > 0.05
+    assert result["srm_detected"] is False
 
 
 def test_srm_detects_large_imbalance():
-    assert sample_ratio_mismatch(700, 300).has_srm is True
+    assert sample_ratio_mismatch(700, 300)["srm_detected"] is True
 
 
 def test_power_increases_with_smaller_mde():
