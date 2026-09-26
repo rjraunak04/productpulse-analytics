@@ -1,0 +1,6 @@
+stage_order,stage_name,sessions,conversion_from_entry
+1,session_start,354857,1.0
+2,view_item,75261,0.2120882496329507
+3,add_to_cart,14891,0.0419633824329236
+4,begin_checkout,5325,0.0150060446884237
+5,purchase,2802,0.0078961384445001
