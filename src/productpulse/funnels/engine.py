@@ -1,8 +1,7 @@
 """Pure-Python funnel summary logic used for validation/reporting."""
 
-from itertools import pairwise
-
 from dataclasses import dataclass
+from itertools import pairwise
 
 from productpulse.metrics.ratios import safe_ratio
 
