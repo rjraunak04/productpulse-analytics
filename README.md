@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 10 complete — censoring-aware inactivity and survival analytics.**
+**Step 11 complete — recruiter-ready decision application.**
 
-The repository now models time from an observed active week to the next observed active week, explicitly preserves right-censored intervals, provides return-time distributions and Kaplan–Meier-ready inputs, includes a tested Kaplan–Meier estimator, and reports endpoint inactivity states without mislabelling censored users as permanently churned.
+ProductPulse now includes a lightweight Streamlit decision workspace spanning the North Star, ordered funnel, cohort retention, experimentation, observed economics and inactivity analysis. The UI consumes validated aggregate exports, preserves analytical caveats in-context, and intentionally shows safe empty states instead of fabricated portfolio results when BigQuery outputs have not been executed/exported.
 
 ## Roadmap
 

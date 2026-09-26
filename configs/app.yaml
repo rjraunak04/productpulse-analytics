@@ -1,0 +1,20 @@
+app:
+  name: ProductPulse
+  entrypoint: app/streamlit_app.py
+  data_mode: validated_aggregate_exports
+  raw_data_in_app: false
+  live_bigquery_per_interaction: false
+
+pages:
+  - executive_overview
+  - funnel
+  - retention
+  - experimentation
+  - economics
+  - inactivity
+
+disclosures:
+  pseudonymous_identity: true
+  bounded_observation_window: true
+  simulated_experiment_assignment: true
+  no_fabricated_results: true
