@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 8 complete — statistical experimentation framework.**
+**Step 9 complete — defensible growth and customer-economics layer.**
 
-The repository now includes a deterministic, explicitly simulated user-level assignment layer for experimentation-framework demonstration; SRM checks; binary uplift, confidence interval and hypothesis-test utilities; practical-significance thresholds; guardrail separation; approximate power/MDE planning; and unit tests. Simulated assignment is never represented as an observed Google Merchandise Store experiment or causal evidence.
+The repository now implements observed-window user value, weekly monetization metrics, repeat-purchase behaviour, first-user acquisition-source value context, sample-relative RFM segmentation and value-distribution diagnostics. CAC, ROAS, payback and profit-based LTV are explicitly excluded because the public source does not provide defensible marketing-cost or margin data.
 
 ## Roadmap
 
