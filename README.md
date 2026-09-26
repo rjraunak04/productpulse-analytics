@@ -1,63 +1,118 @@
-# ProductPulse Analytics
+# ProductPulse
 
-An end-to-end product growth and experimentation analytics project built around event-level behavioural data.
+**Product growth, experimentation and customer-behaviour analytics from raw GA4 events to decisions.**
 
-ProductPulse is designed to answer the questions a product or growth analytics team faces every day: where users drop from the journey, what drives activation and retention, whether a product change creates measurable lift, and how user behaviour connects to commercial outcomes.
+ProductPulse is an end-to-end analytics portfolio project built on Google's public GA4 ecommerce sample in BigQuery. It demonstrates how a product/data analyst can move from event-level data contracts to trustworthy metrics, statistical analysis and a decision-facing application without hiding important measurement limitations.
 
-## Project goals
+## What this project answers
 
-- Build product metrics from raw event data rather than a pre-aggregated dashboard dataset.
-- Analyse acquisition, activation, engagement, conversion, retention and monetisation.
-- Build reusable funnel and cohort analysis.
-- Demonstrate statistically sound A/B experimentation.
-- Connect behavioural metrics with unit economics.
-- Keep the analysis reproducible, tested and easy for another analyst to review.
+- Is meaningful weekly product activity growing?
+- Where do users drop in an **ordered** product journey?
+- Which cohorts return, and how does retention change over time?
+- How should an A/B experiment be validated and interpreted?
+- Where is observed customer value concentrated?
+- How long does it take users to return after activity?
 
-## Planned data source
+## Architecture
 
-The analytical foundation will use the public Google Analytics 4 sample ecommerce event dataset in BigQuery. Experiment assignments used for the experimentation module will be explicitly documented as simulated where a real randomized assignment is unavailable.
+```text
+GA4 public BigQuery sample
+        ↓
+Source contracts + staging
+        ↓
+Data-quality gates
+        ↓
+Event / session / user behavioural grains
+        ↓
+Product KPIs + North Star
+        ↓
+Ordered funnel ─ Cohorts/retention ─ Experimentation
+        ↓                  ↓                 ↓
+Growth economics      Survival analysis   Statistical decisions
+        \__________________|________________/
+                           ↓
+                  Streamlit decision app
+```
 
-No raw production-like dataset is committed to this repository.
+## Analytics layers
 
-## Analytical workflow
+| Layer | What is implemented |
+| --- | --- |
+| Data foundation | bounded GA4 queries, schema/source contracts, staging |
+| Quality | completeness, identity/session coverage, purchase/item integrity, invariants |
+| Behaviour | event, session, user, user-day and ordered event-sequence grains |
+| Product metrics | Weekly Activated Users v1, WAU, activation and engagement context |
+| Funnel | `session_start → view_item → add_to_cart → begin_checkout → purchase` |
+| Retention | first-observed cohorts, W0-W8 matrix, retained/resurrected states, growth accounting |
+| Experimentation | deterministic simulated assignment, SRM, uplift, CI, p-value, practical significance, power/MDE |
+| Economics | observed revenue/value, repeat purchase, acquisition-source context, RFM-style segmentation |
+| Survival | right-censored time-to-next-activity and Kaplan–Meier estimation |
+| Decision app | focused Streamlit views over validated aggregate exports |
 
-Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohorts/retention -> experimentation -> unit economics -> churn/survival -> decision application.
+## Technical stack
 
-## Repository structure
+**BigQuery SQL · Python · pandas · statistics · pytest · Ruff · GitHub Actions · Streamlit**
 
-- `configs/` - project and metric configuration
-- `docs/` - business context, metrics and architecture documentation
-- `sql/` - BigQuery transformations and analytical queries
-- `src/productpulse/` - reusable Python analytics package
-- `tests/` - automated tests
-- `app/` - decision-oriented analytical application
-- `reports/` - generated analytical outputs
-- `assets/` - recruiter-facing screenshots and diagrams
+The Python package contains reusable metric, funnel, retention, experimentation, economics and survival helpers. SQL owns warehouse metric logic; Python handles reusable statistical/validation semantics; Streamlit stays a thin presentation layer.
 
-## Current status
+## Run locally
 
-**Step 11 complete — recruiter-ready decision application.**
+```bash
+python -m venv .venv
+# activate the environment
+pip install -e ".[dev]"
+ruff check src tests
+pytest -q
 
-ProductPulse now includes a lightweight Streamlit decision workspace spanning the North Star, ordered funnel, cohort retention, experimentation, observed economics and inactivity analysis. The UI consumes validated aggregate exports, preserves analytical caveats in-context, and intentionally shows safe empty states instead of fabricated portfolio results when BigQuery outputs have not been executed/exported.
+pip install -r requirements-app.txt
+streamlit run app/streamlit_app.py
+```
 
-## Roadmap
+The app expects validated aggregate CSV exports in `reports/app_data/`. If they are absent, it intentionally shows safe empty states rather than invented KPI values.
 
-1. Project foundation and business case
-2. GA4 BigQuery data foundation
-3. Event-level data quality
-4. User/session behavioural layer
-5. Product KPI framework
-6. Conversion funnel engine
-7. Cohort and retention engine
-8. Statistical experimentation framework
-9. Growth and unit economics
-10. Churn and survival analytics
-11. Decision application
-12. Production hardening and recruiter release
+## Data and analytical integrity
 
-## Principles
+The source is `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`, bounded to **2020-11-01 through 2021-01-31**. No raw GA4 data or credentials are committed.
 
-Reproducibility over screenshots. Business decisions over vanity metrics. Statistical and practical significance are reported separately. Associations are not described as causal without an appropriate design.
+Important boundaries:
 
----
-Built as a portfolio-grade analytics project focused on product, growth and experimentation skills.
+- `user_pseudo_id` is a pseudonymous client identifier, not a verified person.
+- first observed activity inside the sample is not claimed to be signup.
+- top-level GA4 traffic source is first-user context, not session attribution.
+- missing future cohort follow-up is unobservable, not 0% retention.
+- inactivity/right censoring is not automatically permanent churn.
+- observed-window revenue is not lifetime value.
+- CAC, ROAS and payback are not fabricated without cost data.
+- the experiment assignment is **simulated for framework demonstration**; it is not a real randomized Google Merchandise Store experiment and does not establish a causal product effect.
+
+## Repository map
+
+```text
+app/                    Streamlit decision layer
+configs/                versioned analytics contracts
+docs/                   methodology, runbooks and recruiter narrative
+reports/app_data/       validated aggregate export interface
+sql/
+  staging/              source profiling and staging
+  quality/              quality and invariant checks
+  behavioural/          reusable behavioural grains
+  product_metrics/      KPI and North Star layer
+  funnels/              ordered conversion analysis
+  retention/            cohorts and lifecycle analysis
+  experimentation/      experiment demonstration inputs
+  economics/            monetization/value analysis
+  survival/             time-to-return/censoring analysis
+src/productpulse/       tested Python analytics utilities
+tests/                  unit tests
+.github/workflows/      CI quality gate
+```
+
+## Recruiter walkthrough
+
+For a fast review, start with **[Recruiter Guide](docs/recruiter_guide.md)** and **[Interview Story](docs/interview_story.md)**. The full v1 scope is recorded in **[v1 Acceptance](docs/v1_acceptance.md)** and **[Changelog](CHANGELOG.md)**.
+
+## Status
+
+**v1.0.0 scope complete — feature frozen.**
+
+The analytical system is complete at repository level. Live BigQuery result values are intentionally not claimed in this repository until the queries are executed in a configured GCP project and validated. Future changes should address real requirements or defects rather than add portfolio scope.
