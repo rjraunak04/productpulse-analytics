@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 6 complete — ordered conversion funnel engine.**
+**Step 7 complete — cohort and retention analytics engine.**
 
-The repository now implements the canonical same-session journey `session_start → view_item → add_to_cart → begin_checkout → purchase`, with ordered progression, step and overall conversion, absolute drop-off, stage timing, device segmentation, funnel invariants and unit-tested Python summary logic. Presence flags remain distinct from ordered funnel conversion.
+The repository now implements first-observed weekly cohorts, classic weekly retention in long and matrix forms, user lifecycle states, weekly growth accounting, cohort follow-up/right-censoring diagnostics, retention invariants and unit-tested Python retention semantics. Unobservable future weeks are never treated as zero retention or churn.
 
 ## Roadmap
 
