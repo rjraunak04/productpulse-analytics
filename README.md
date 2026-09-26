@@ -1,8 +1,17 @@
 # ProductPulse
 
-**Product growth, experimentation and customer-behaviour analytics from raw GA4 events to decisions.**
+**Product growth, experimentation and customer-behaviour analytics from raw GA4 events to decisions — with a grounded conversational Analytics Copilot.**
+
+**Live demo:** https://productpulse-app-production.up.railway.app
 
 ProductPulse is an end-to-end analytics portfolio project built on Google's public GA4 ecommerce sample in BigQuery. It demonstrates how a product/data analyst can move from event-level data contracts to trustworthy metrics, statistical analysis and a decision-facing application without hiding important measurement limitations.
+
+## Recruiter quick start
+
+1. Open the **live demo** and review Executive Overview → Funnel → Retention → Analytics Copilot.
+2. Read **[Validated Live Execution](docs/live_execution.md)** for the real execution snapshot and analytical boundaries.
+3. Review `sql/` for warehouse logic, `src/productpulse/` for reusable analytics/statistics, and `tests/` + GitHub Actions for quality gates.
+4. The Analytics Copilot is intentionally **grounded and bounded**: it answers from committed validated aggregates and refuses unsupported topics instead of inventing metrics.
 
 ## What this project answers
 
@@ -60,10 +69,11 @@ Growth economics      Survival analysis   Statistical decisions
 | Economics | observed revenue/value, repeat purchase, acquisition-source context, RFM-style segmentation |
 | Survival | right-censored time-to-next-activity and Kaplan–Meier estimation |
 | Decision app | focused Streamlit views over validated aggregate exports |
+| Analytics Copilot | grounded chat over validated KPIs, funnel, retention, experiment, economics and inactivity outputs |
 
 ## Technical stack
 
-**BigQuery SQL · Advanced SQL · Python · pandas · SciPy/Statsmodels · statistics · pytest · Ruff · GitHub Actions · Streamlit · Railway**
+**BigQuery SQL · Advanced SQL · Python · pandas · SciPy/Statsmodels · statistics · conversational analytics · pytest · Ruff · GitHub Actions · Streamlit · Railway**
 
 The Python package contains reusable metric, funnel, retention, experimentation, economics and survival helpers. SQL owns warehouse metric logic; Python handles reusable statistical/validation semantics; Streamlit stays a thin presentation layer.
 
