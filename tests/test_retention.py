@@ -1,6 +1,6 @@
 import pytest
 
-from productpulse.retention import classify_lifecycle,retention_rate
+from productpulse.retention import classify_lifecycle, retention_rate
 
 
 def test_retention_rate():
