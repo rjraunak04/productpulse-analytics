@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from productpulse.app_data import load_csv,require_columns
+from productpulse.app_data import load_csv, require_columns
 
 
 def test_load_missing_csv_returns_empty(tmp_path: Path):
