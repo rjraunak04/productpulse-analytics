@@ -1,5 +1,6 @@
-from itertools import pairwise
 """Pure-Python funnel summary logic used for validation/reporting."""
+
+from itertools import pairwise
 
 from dataclasses import dataclass
 
