@@ -1,0 +1,60 @@
+quality_contract:
+  version: 1
+  source_window:
+    start: "2020-11-01"
+    end: "2021-01-31"
+
+rules:
+  - id: Q001
+    name: event_date_not_null
+    severity: error
+    expectation: zero
+  - id: Q002
+    name: event_timestamp_not_null
+    severity: error
+    expectation: zero
+  - id: Q003
+    name: event_name_not_blank
+    severity: error
+    expectation: zero
+  - id: Q004
+    name: event_within_contract_window
+    severity: error
+    expectation: zero
+  - id: Q005
+    name: pseudo_user_missing
+    severity: warn
+    expectation: measure
+  - id: Q006
+    name: session_id_missing
+    severity: warn
+    expectation: measure_by_event
+  - id: Q007
+    name: duplicate_candidate
+    severity: warn
+    expectation: investigate
+  - id: Q008
+    name: missing_calendar_day
+    severity: warn
+    expectation: investigate
+  - id: Q009
+    name: negative_purchase_revenue
+    severity: error
+    expectation: zero
+  - id: Q010
+    name: duplicate_transaction_id
+    severity: warn
+    expectation: investigate
+  - id: Q011
+    name: required_funnel_event_presence
+    severity: error
+    expectation: present
+  - id: Q012
+    name: unidentified_item
+    severity: warn
+    expectation: measure
+
+policy:
+  error: blocks downstream metric release when observed
+  warn: requires investigation/documentation; does not imply source corruption
+  thresholds_not_observed_are_not_fabricated: true
