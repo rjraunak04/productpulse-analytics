@@ -1,6 +1,6 @@
 import pytest
 
-from productpulse.economics import observed_repeat_purchase_rate,revenue_per_user
+from productpulse.economics import observed_repeat_purchase_rate, revenue_per_user
 
 
 def test_revenue_per_user():

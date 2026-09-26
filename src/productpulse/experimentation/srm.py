@@ -1,10 +1,10 @@
 """Sample-ratio-mismatch check for two-arm experiments."""
 
-from math import erfc,sqrt
+from math import erfc, sqrt
 
 
 def sample_ratio_mismatch(
-    control_n: int,treatment_n: int,expected_control_share: float=0.5,alpha: float=0.01
+    control_n: int, treatment_n: int, expected_control_share: float=0.5, alpha: float=0.01
 ) -> dict:
     total=control_n+treatment_n
     if total<=0:
@@ -19,4 +19,4 @@ def sample_ratio_mismatch(
     chi2=(control_n-expected_c)**2/expected_c+(treatment_n-expected_t)**2/expected_t
     # df=1 chi-square survival function = erfc(sqrt(x/2))
     p_value=erfc(sqrt(chi2/2))
-    return {"chi_square":chi2,"p_value":p_value,"srm_detected":p_value<alpha}
+    return {"chi_square":chi2, "p_value":p_value, "srm_detected":p_value<alpha}

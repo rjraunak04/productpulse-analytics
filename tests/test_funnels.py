@@ -1,6 +1,6 @@
 import pytest
 
-from productpulse.funnels import FunnelStage,summarize_funnel
+from productpulse.funnels import FunnelStage, summarize_funnel
 
 
 def test_funnel_summary():

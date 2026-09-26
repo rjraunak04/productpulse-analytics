@@ -1,5 +1,5 @@
 """Retention calculation helpers."""
 
-from .cohorts import retention_rate, classify_lifecycle
+from .cohorts import classify_lifecycle, retention_rate
 
-__all__=["retention_rate","classify_lifecycle"]
+__all__=["classify_lifecycle", "retention_rate"]

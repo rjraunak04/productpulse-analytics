@@ -1,7 +1,7 @@
 """Two-arm binary experiment analysis using normal approximations."""
 
 from dataclasses import dataclass
-from math import erf,sqrt
+from math import erf, sqrt
 
 
 def _normal_cdf(x: float) -> float:
@@ -23,14 +23,14 @@ class BinaryExperimentResult:
 
 
 def analyze_binary_metric(
-    control_successes: int,
-    control_n: int,
-    treatment_successes: int,
-    treatment_n: int,
-    alpha: float=0.05,
-    minimum_practical_uplift: float=0.0,
+    control_successes: int, 
+    control_n: int, 
+    treatment_successes: int, 
+    treatment_n: int, 
+    alpha: float=0.05, 
+    minimum_practical_uplift: float=0.0, 
 ) -> BinaryExperimentResult:
-    for successes,n in ((control_successes,control_n),(treatment_successes,treatment_n)):
+    for successes, n in ((control_successes, control_n), (treatment_successes, treatment_n)):
         if n<=0 or successes<0 or successes>n:
             raise ValueError("invalid binary metric counts")
     if not 0<alpha<1:
@@ -53,14 +53,14 @@ def analyze_binary_metric(
     margin=critical*se_unpooled
 
     return BinaryExperimentResult(
-        control_rate=pc,
-        treatment_rate=pt,
-        absolute_uplift=diff,
-        relative_uplift=None if pc==0 else diff/pc,
-        ci_low=diff-margin,
-        ci_high=diff+margin,
-        z_statistic=z,
-        p_value=p,
-        statistically_significant=p<alpha,
-        practically_significant=abs(diff)>=minimum_practical_uplift,
+        control_rate=pc, 
+        treatment_rate=pt, 
+        absolute_uplift=diff, 
+        relative_uplift=None if pc==0 else diff/pc, 
+        ci_low=diff-margin, 
+        ci_high=diff+margin, 
+        z_statistic=z, 
+        p_value=p, 
+        statistically_significant=p<alpha, 
+        practically_significant=abs(diff)>=minimum_practical_uplift, 
     )

@@ -3,4 +3,4 @@
 from .ratios import safe_ratio
 from .weekly import WeeklyProductMetrics
 
-__all__ = ["safe_ratio", "WeeklyProductMetrics"]
+__all__ = ["WeeklyProductMetrics", "safe_ratio"]
