@@ -1,7 +1,7 @@
 import pytest
 
 from productpulse.experimentation import (
-    analyze_binary_metric,approximate_sample_size_per_arm,sample_ratio_mismatch,
+    analyze_binary_metric,\n    approximate_sample_size_per_arm,\n    sample_ratio_mismatch,
 )
 
 
