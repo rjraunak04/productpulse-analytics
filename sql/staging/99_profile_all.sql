@@ -1,0 +1,11 @@
+-- Run the numbered profiling queries individually in BigQuery.
+-- This file is an index rather than a multi-result script.
+--
+-- 00_source_inventory.sql
+-- 01_event_name_profile.sql
+-- 02_event_param_profile.sql
+-- 03_core_dimension_profile.sql
+-- 04_ecommerce_profile.sql
+-- 05_items_profile.sql
+-- 10_stg_events.sql
+-- 11_stg_items.sql
