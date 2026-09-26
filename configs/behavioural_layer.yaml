@@ -1,0 +1,36 @@
+behavioural_layer:
+  version: 1
+  observation_window:
+    start: "2020-11-01"
+    end: "2021-01-31"
+
+identity:
+  user_key: user_pseudo_id
+  interpretation: pseudonymous client identifier
+
+session:
+  key:
+    - user_pseudo_id
+    - ga_session_id
+  require_non_null_key: true
+  fallback_inactivity_sessionization: false
+  duration_definition: max_event_timestamp_minus_min_event_timestamp
+  duration_name: observed_session_duration_seconds
+
+grains:
+  event: one exported event
+  session: one user_pseudo_id plus ga_session_id
+  user: one user_pseudo_id over contracted observation window
+  user_day: one user_pseudo_id plus activity_date
+  sequence: one ordered event position within a session
+
+journey_flags:
+  - view_item
+  - add_to_cart
+  - begin_checkout
+  - purchase
+
+policy:
+  do_not_invent_sessions_for_missing_ga_session_id: true
+  excluded_event_coverage_must_be_reported: true
+  observed_window_metrics_are_not_lifetime_metrics: true
