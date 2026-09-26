@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
@@ -24,17 +24,17 @@ def test_session_key_rejects_negative_id():
 
 
 def test_observed_duration_seconds():
-    start = datetime(2026, 1, 1, 12, 0)
+    start = datetime(2026, 1, 1, 12, 0, tzinfo=UTC)
     assert observed_duration_seconds(start, start + timedelta(seconds=95)) == 95
 
 
 def test_duration_rejects_inverted_session():
-    start = datetime(2026, 1, 1, 12, 0)
+    start = datetime(2026, 1, 1, 12, 0, tzinfo=UTC)
     with pytest.raises(ValueError):
         observed_duration_seconds(start, start - timedelta(seconds=1))
 
 
 def test_observed_span_days():
-    first = datetime(2026, 1, 1, 23, 0)
-    last = datetime(2026, 1, 3, 1, 0)
+    first = datetime(2026, 1, 1, 23, 0, tzinfo=UTC)
+    last = datetime(2026, 1, 3, 1, 0, tzinfo=UTC)
     assert observed_span_days(first, last) == 2
