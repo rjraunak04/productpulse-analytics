@@ -1,0 +1,23 @@
+survival_contract:
+  version: 1
+  entity: user_pseudo_id
+  analysis: time_to_next_observed_active_week
+  time_unit: weeks
+  origin: observed_active_week
+  event: next_observed_active_week
+  censoring: no_next_activity_before_observation_end
+  observation_end: "2021-01-31"
+
+inactivity:
+  labels:
+    active_this_week: observed activity in current week
+    one_week_inactive: last activity was 1 completed week ago
+    multiweek_inactive: last activity was 2 or more completed weeks ago
+  permanent_churn_label_allowed: false
+
+guardrails:
+  right_censoring_required: true
+  censored_is_not_churned: true
+  first_observed_is_not_signup: true
+  identity_is_pseudonymous: true
+  survival_results_are_descriptive: true

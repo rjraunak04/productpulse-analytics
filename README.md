@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 9 complete — defensible growth and customer-economics layer.**
+**Step 10 complete — censoring-aware inactivity and survival analytics.**
 
-The repository now implements observed-window user value, weekly monetization metrics, repeat-purchase behaviour, first-user acquisition-source value context, sample-relative RFM segmentation and value-distribution diagnostics. CAC, ROAS, payback and profit-based LTV are explicitly excluded because the public source does not provide defensible marketing-cost or margin data.
+The repository now models time from an observed active week to the next observed active week, explicitly preserves right-censored intervals, provides return-time distributions and Kaplan–Meier-ready inputs, includes a tested Kaplan–Meier estimator, and reports endpoint inactivity states without mislabelling censored users as permanently churned.
 
 ## Roadmap
 
