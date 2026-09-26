@@ -1,0 +1,53 @@
+metric_contract:
+  version: 1
+  timezone: UTC
+  observation_window:
+    start: "2020-11-01"
+    end: "2021-01-31"
+
+north_star:
+  name: weekly_activated_users
+  abbreviation: WAU-A
+  grain: user_week
+  activation_definition: purchase
+  rationale: >
+    For the ecommerce GA4 sample, purchase is an observable value event. This is a
+    conservative v1 activation definition and is not claimed to be the only valid
+    product activation definition.
+  numerator: distinct user_pseudo_id with at least one purchase in the week
+  denominator: null
+  window: ISO week
+  status: implemented_v1
+
+metrics:
+  weekly_active_users:
+    grain: user_week
+    definition: distinct users with at least one observed event in the week
+  weekly_activated_users:
+    grain: user_week
+    definition: distinct users with at least one purchase in the week
+  weekly_activation_rate:
+    grain: week
+    numerator: weekly_activated_users
+    denominator: weekly_active_users
+  purchasing_sessions:
+    grain: week
+    definition: distinct session keys containing purchase
+  purchase_session_rate:
+    grain: week
+    numerator: purchasing_sessions
+    denominator: observed_sessions
+  revenue_per_active_user:
+    grain: week
+    numerator: purchase_revenue_usd
+    denominator: weekly_active_users
+  average_purchase_value:
+    grain: week
+    numerator: purchase_revenue_usd
+    denominator: purchase_events
+
+guardrails:
+  safe_division: true
+  zero_denominator_returns_null: true
+  observed_metrics_are_not_lifetime_metrics: true
+  first_and_last_partial_weeks_must_be_flagged: true

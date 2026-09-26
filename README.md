@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 4 complete — reusable behavioural analytics layer.**
+**Step 5 complete — product KPI and North Star metric layer.**
 
-The repository now defines explicit event, session, user, user-day and ordered session-event grains; preserves GA4 session identity without silently synthesizing missing sessions; adds behavioural reconciliation/invariant checks; and includes unit-tested Python helpers for behavioural contracts. Downstream product KPIs can now build on stable analytical grains.
+The repository now implements a documented v1 North Star (Weekly Activated Users), weekly active/activation metrics, session conversion context, engagement metrics, safe ratio semantics, partial-week safeguards, metric reconciliation checks and unit-tested Python metric helpers. Funnel ordering and retention remain separate later layers.
 
 ## Roadmap
 
