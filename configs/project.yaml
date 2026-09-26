@@ -1,0 +1,18 @@
+project:
+  name: ProductPulse Analytics
+  version: 0.1.0
+  stage: foundation
+
+data:
+  source: google_ga4_bigquery_sample
+  raw_data_committed: false
+
+measurement:
+  north_star: weekly_activated_users
+  activation_definition_status: pending_source_validation
+
+experimentation:
+  simulated_assignment_allowed: true
+  simulation_must_be_disclosed: true
+  alpha: 0.05
+  power_target: 0.80
