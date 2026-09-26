@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 5 complete — product KPI and North Star metric layer.**
+**Step 6 complete — ordered conversion funnel engine.**
 
-The repository now implements a documented v1 North Star (Weekly Activated Users), weekly active/activation metrics, session conversion context, engagement metrics, safe ratio semantics, partial-week safeguards, metric reconciliation checks and unit-tested Python metric helpers. Funnel ordering and retention remain separate later layers.
+The repository now implements the canonical same-session journey `session_start → view_item → add_to_cart → begin_checkout → purchase`, with ordered progression, step and overall conversion, absolute drop-off, stage timing, device segmentation, funnel invariants and unit-tested Python summary logic. Presence flags remain distinct from ordered funnel conversion.
 
 ## Roadmap
 
