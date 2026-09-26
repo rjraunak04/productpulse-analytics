@@ -13,6 +13,18 @@ ProductPulse is an end-to-end analytics portfolio project built on Google's publ
 - Where is observed customer value concentrated?
 - How long does it take users to return after activity?
 
+## Validated production snapshot
+
+| Metric | Result |
+| --- | ---: |
+| Raw GA4 events | **4,295,584** |
+| Pseudonymous users | **270,154** |
+| Raw purchase events | **5,692** |
+| Ordered funnel | **354,857 → 75,261 → 14,891 → 5,325 → 2,802** |
+| Analysis window | **2020-11-01 → 2021-01-31** |
+
+The ordered funnel represents session-level progression through `session_start → view_item → add_to_cart → begin_checkout → purchase`. Raw purchase events and ordered purchase sessions are different grains and are intentionally not equated. See **[Validated Live Execution](docs/live_execution.md)** for the execution contract and interpretation boundaries.
+
 ## Architecture
 
 ```text
@@ -51,7 +63,7 @@ Growth economics      Survival analysis   Statistical decisions
 
 ## Technical stack
 
-**BigQuery SQL · Python · pandas · statistics · pytest · Ruff · GitHub Actions · Streamlit**
+**BigQuery SQL · Advanced SQL · Python · pandas · SciPy/Statsmodels · statistics · pytest · Ruff · GitHub Actions · Streamlit · Railway**
 
 The Python package contains reusable metric, funnel, retention, experimentation, economics and survival helpers. SQL owns warehouse metric logic; Python handles reusable statistical/validation semantics; Streamlit stays a thin presentation layer.
 
@@ -109,10 +121,10 @@ tests/                  unit tests
 
 ## Recruiter walkthrough
 
-For a fast review, start with **[Recruiter Guide](docs/recruiter_guide.md)** and **[Interview Story](docs/interview_story.md)**. The full v1 scope is recorded in **[v1 Acceptance](docs/v1_acceptance.md)** and **[Changelog](CHANGELOG.md)**.
+For a fast review, start with **[Recruiter Guide](docs/recruiter_guide.md)**, **[Validated Live Execution](docs/live_execution.md)** and **[Interview Story](docs/interview_story.md)**. The full v1 scope is recorded in **[v1 Acceptance](docs/v1_acceptance.md)** and **[Changelog](CHANGELOG.md)**.
 
 ## Status
 
 **v1.0.0 scope complete — feature frozen.**
 
-The analytical system is complete at repository level. Live BigQuery result values are intentionally not claimed in this repository until the queries are executed in a configured GCP project and validated. Future changes should address real requirements or defects rather than add portfolio scope.
+The analytical system has been executed against the public GA4 sample, its six aggregate app outputs have been validated and committed, and the Streamlit decision application is deployed on Railway. The v1 portfolio scope is frozen; future changes should address real requirements or defects rather than add showcase features.
