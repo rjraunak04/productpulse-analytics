@@ -1,0 +1,33 @@
+source:
+  provider: Google Analytics
+  platform: BigQuery Public Datasets
+  project: bigquery-public-data
+  dataset: ga4_obfuscated_sample_ecommerce
+  table_pattern: events_*
+  start_date: "2020-11-01"
+  end_date: "2021-01-31"
+  expected_table_suffix_start: "20201101"
+  expected_table_suffix_end: "20210131"
+  event_grain: one exported GA4 event before repeated-record expansion
+  user_key: user_pseudo_id
+  raw_data_committed: false
+
+repeated_records:
+  - event_params
+  - user_properties
+  - items
+
+staging_models:
+  events:
+    file: sql/staging/10_stg_events.sql
+    grain: one row per source event
+  items:
+    file: sql/staging/11_stg_items.sql
+    grain: one row per event-item
+
+limitations:
+  - public sample is obfuscated and internal consistency may be limited
+  - sample covers a fixed historical three-month window
+  - user_pseudo_id is a pseudonymous browser/app identifier, not a verified person
+  - acquisition traffic_source is first-user scoped and must not be described as session attribution
+  - repeated records change grain when unnested

@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 1 complete — project foundation and product measurement framework.**
+**Step 2 complete — GA4 BigQuery data foundation.**
 
-The repository currently defines the business problem, stakeholder decisions, scope, North Star framework, metric tree, architecture boundaries and development roadmap. Data ingestion begins in Step 2.
+The repository now locks the official GA4 public ecommerce source, documents nested/repeated schema behaviour, defines event and item analytical grains, and includes bounded profiling plus reusable staging SQL. Profiling results are not fabricated: observed values are recorded only after the queries are executed in an authorized BigQuery project.
 
 ## Roadmap
 
