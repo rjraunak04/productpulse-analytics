@@ -36,9 +36,9 @@ Raw events -> data quality -> sessions/users -> metric layer -> funnels -> cohor
 
 ## Current status
 
-**Step 7 complete — cohort and retention analytics engine.**
+**Step 8 complete — statistical experimentation framework.**
 
-The repository now implements first-observed weekly cohorts, classic weekly retention in long and matrix forms, user lifecycle states, weekly growth accounting, cohort follow-up/right-censoring diagnostics, retention invariants and unit-tested Python retention semantics. Unobservable future weeks are never treated as zero retention or churn.
+The repository now includes a deterministic, explicitly simulated user-level assignment layer for experimentation-framework demonstration; SRM checks; binary uplift, confidence interval and hypothesis-test utilities; practical-significance thresholds; guardrail separation; approximate power/MDE planning; and unit tests. Simulated assignment is never represented as an observed Google Merchandise Store experiment or causal evidence.
 
 ## Roadmap
 
