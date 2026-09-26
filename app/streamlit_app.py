@@ -10,6 +10,8 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 import pandas as pd
 import streamlit as st
 
+from productpulse.copilot import answer_question
+
 def load_csv(path: str | Path) -> pd.DataFrame:
     """Load an exported aggregate CSV, returning an empty frame when absent."""
     path = Path(path)
@@ -27,7 +29,7 @@ with st.sidebar:
     st.header("Analysis")
     page=st.radio(
         "View",
-        ["Executive overview","Funnel","Retention","Experimentation","Economics","Inactivity"],
+        ["Executive overview","Funnel","Retention","Experimentation","Economics","Inactivity","Analytics Copilot"],
     )
     st.divider()
     st.caption("GA4 public sample · 2020-11-01 to 2021-01-31")
@@ -88,7 +90,7 @@ elif page=="Economics":
         st.dataframe(df,use_container_width=True,hide_index=True)
     st.caption("Observed value is not LTV. CAC/ROAS/payback are excluded without cost data.")
 
-else:
+elif page=="Inactivity":
     st.subheader("Inactivity and time-to-return")
     df=dataset("inactivity_summary.csv")
     if df.empty:
@@ -97,3 +99,46 @@ else:
         st.bar_chart(df.set_index("inactivity_state")["users"])
         st.dataframe(df,use_container_width=True,hide_index=True)
     st.caption("Inactivity and right censoring are not permanent churn labels.")
+
+
+else:
+    st.subheader("ProductPulse Analytics Copilot")
+    st.caption("Grounded conversational analytics over validated ProductPulse exports.")
+    st.info(
+        "The copilot is deliberately bounded to validated aggregate outputs. "
+        "It will not invent unavailable metrics or treat the simulated experiment as causal."
+    )
+
+    copilot_data = {
+        "weekly_product_kpis": dataset("weekly_product_kpis.csv"),
+        "funnel_summary": dataset("funnel_summary.csv"),
+        "retention_matrix": dataset("retention_matrix.csv"),
+        "experiment_summary": dataset("experiment_summary.csv"),
+        "weekly_revenue_metrics": dataset("weekly_revenue_metrics.csv"),
+        "inactivity_summary": dataset("inactivity_summary.csv"),
+    }
+
+    if "copilot_messages" not in st.session_state:
+        st.session_state.copilot_messages = [
+            {
+                "role": "assistant",
+                "content": (
+                    "Ask me about activation, funnel drop-off, cohort retention, "
+                    "the experiment demo, revenue, or inactivity."
+                ),
+            }
+        ]
+
+    for message in st.session_state.copilot_messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    question = st.chat_input("Ask ProductPulse about the validated analytics...")
+    if question:
+        st.session_state.copilot_messages.append({"role": "user", "content": question})
+        with st.chat_message("user"):
+            st.markdown(question)
+        answer = answer_question(question, copilot_data)
+        st.session_state.copilot_messages.append({"role": "assistant", "content": answer})
+        with st.chat_message("assistant"):
+            st.markdown(answer)
