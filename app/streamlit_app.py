@@ -5,13 +5,20 @@ BigQuery on every UI interaction, keeping the portfolio app cheap and reproducib
 """
 
 from pathlib import Path
+import sys
+
+# Allow the deployed app to import the src-layout package without requiring an editable install.
+ROOT_DIR = Path(__file__).resolve().parents[1]
+SRC_DIR = ROOT_DIR / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
 import pandas as pd
 import streamlit as st
 
 from productpulse.app_data import load_csv
 
-DATA_DIR=Path("reports/app_data")
+DATA_DIR=ROOT_DIR / "reports" / "app_data"
 
 st.set_page_config(page_title="ProductPulse",page_icon="📈",layout="wide")
 st.title("ProductPulse")
