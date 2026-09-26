@@ -1,0 +1,23 @@
+retention_contract:
+  version: 1
+  entity: user_pseudo_id
+  activity_definition: at_least_one_observed_event
+  cohort_definition: first_observed_activity_week
+  week_start: monday
+  retention_type: classic_weekly
+  denominator: cohort_size
+  week_0_definition: cohort_entry_week
+  returning_definition: active_after_first_observed_week
+  resurrection_definition: active_after_at_least_one_inactive_week_since_prior_activity
+
+observation:
+  start: "2020-11-01"
+  end: "2021-01-31"
+  right_censoring_policy: do_not_score_unobservable_future_weeks
+  boundary_cohorts: flag_limited_followup
+
+guardrails:
+  identity_is_pseudonymous: true
+  first_observed_is_not_true_signup: true
+  retention_is_observed_window_retention: true
+  missing_future_is_not_churn: true
